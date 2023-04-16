@@ -16,20 +16,18 @@ import javax.crypto.spec.IvParameterSpec;
  * @author mac
  */
 /**
- * Section A49 
- * Name:             ID: 
- * Jana Kurdi       1906167 
- * Jamelah hadi     1910165
- * Renad Ghaleb     1908460  
- * Noor Babahr      1912922
+ * Section A49 Name: ID: Jana Kurdi 1906167 Jamelah hadi 1910165 Renad Ghaleb
+ * 1908460 Noor Babahr 1912922
  */
 public class Sender {
 
     //PublicKey publicKey;
     byte[] EncryptedByte;
-    Key key; 
+    Key key;
     PublicKey publicKey;
-    
+    Cipher cipherText;
+    byte[] encryptedTextBytes;
+
     public void EncrypteKey() throws Exception {
         //Generate the Key for AES algorithm
         KeyGenerator generator = KeyGenerator.getInstance("AES");
@@ -39,7 +37,7 @@ public class Sender {
         Cipher c = Cipher.getInstance("RSA");
 
         //nitialize the cipher for encryption
-        c.init(Cipher.ENCRYPT_MODE,publicKey);
+        c.init(Cipher.ENCRYPT_MODE, publicKey);
 
         /*Encrypt the text*/
         EncryptedByte = c.doFinal();
@@ -50,28 +48,38 @@ public class Sender {
         //convert the message to array of bytes
         byte[] plainTextByte = plainText.getBytes();
         EncrypteKey();
-        
+
         // create cipher object by using CBC mode and AES algorithm
-        Cipher cipherText = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+        cipherText = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 
         // encrypt the message using CBC mode and AES algorithm: 
         //initialize the cipher object, set mode to encrypt, key ,and Initial vector.
         cipherText.init(Cipher.ENCRYPT_MODE, key, IV);
-        
-        byte[] encryptedTextBytes = cipherText.doFinal(plainTextByte);
+
+        encryptedTextBytes = cipherText.doFinal(plainTextByte);
         //convert the array to string 
         String encryptedText = Base64.getEncoder().encodeToString(encryptedTextBytes);
-      
+
         System.out.println("The encrypted meesage is : " + encryptedText);
 
         return encryptedTextBytes;
     }
 
-    public void setPublicKey(PublicKey receiver) {
-       this.publicKey=receiver;
-       
+    public byte[] DecryptMessage(IvParameterSpec IV) throws Exception {
+
+        //initialize the cipher object, set mode to decrypt, key ,and Initial vector.
+        cipherText.init(Cipher.DECRYPT_MODE, key, IV);
+
+        byte[] decryptedTextBytes = cipherText.doFinal(encryptedTextBytes);
+
+        System.out.println("The Decryption message is : " + new String(decryptedTextBytes));
+
+        return encryptedTextBytes;
     }
 
-  
+    public void setPublicKey(PublicKey receiver) {
+        this.publicKey = receiver;
+
+    }
 
 }
