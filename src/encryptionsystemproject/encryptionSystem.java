@@ -12,7 +12,7 @@ import javax.crypto.spec.IvParameterSpec;
 
 /**
  *
- * @author mac
+ * @author jamehah
  */
 public class encryptionSystem {
 
