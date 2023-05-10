@@ -61,21 +61,15 @@ public class Sender {
         String encryptedText = Base64.getEncoder().encodeToString(encryptedTextBytes);
 
         System.out.println("The encrypted meesage is : " + encryptedText);
-
         return encryptedTextBytes;
     }
 
-    public byte[] DecryptMessage(IvParameterSpec IV) throws Exception {
-
-        //initialize the cipher object, set mode to decrypt, key ,and Initial vector.
-        cipherText.init(Cipher.DECRYPT_MODE, key, IV);
-
-        byte[] decryptedTextBytes = cipherText.doFinal(encryptedTextBytes);
-
-        System.out.println("The Decryption message is : " + new String(decryptedTextBytes));
-
-        return encryptedTextBytes;
+  public void setK(byte[] encryptedTextBytes)
+    {
+       this.encryptedTextBytes = encryptedTextBytes;
     }
+
+ 
 
     public void setPublicKey(PublicKey receiver) {
         this.publicKey = receiver;

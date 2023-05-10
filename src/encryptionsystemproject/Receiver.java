@@ -4,10 +4,13 @@
  */
 package encryptionsystemproject;
 
+import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
 
 /**
  *
@@ -25,6 +28,12 @@ public class Receiver {
     PrivateKey privateKey;
     PublicKey publicKey;
     KeyPair myPair;
+    
+     //PublicKey publicKey;
+    byte[] EncryptedByte;
+    Key key;
+     Cipher cipherText;
+    byte[] encryptedTextBytes;
     public void generateKey() throws Exception{
         //Generate the Key for RSA algorithm
         KeyPairGenerator keygenerator = KeyPairGenerator.getInstance("RSA");
@@ -33,7 +42,17 @@ public class Receiver {
         privateKey=myPair.getPrivate();
         publicKey=myPair.getPublic();
     } 
-    
+        public byte[] DecryptMessage(IvParameterSpec IV) throws Exception {
+Sender s =new Sender();
+        //initialize the cipher object, set mode to decrypt, key ,and Initial vector.
+        cipherText.init(Cipher.DECRYPT_MODE, key, IV);
+
+        byte[] decryptedTextBytes = cipherText.doFinal(encryptedTextBytes);
+
+        System.out.println("The Decryption message is : " + new String(decryptedTextBytes));
+s.setK(encryptedTextBytes);
+        return encryptedTextBytes;
+    }
     
      public PublicKey getPublicKey() {
         return publicKey;
