@@ -61,16 +61,27 @@ public class Sender {
         String encryptedText = Base64.getEncoder().encodeToString(encryptedTextBytes);
 
         System.out.println("The encrypted meesage is : " + encryptedText);
+
         return encryptedTextBytes;
     }
-
-  public void setK(byte[] encryptedTextBytes)
-    {
-       this.encryptedTextBytes = encryptedTextBytes;
-    }
-
  
-
+   public Cipher getcipherText()
+     { 
+         return cipherText;
+     }
+    public Key key()
+     { 
+         return key;
+     }
+    
+        public Key getkey()
+     { 
+         return key;
+     }
+              public    byte[] getencryptedTextBytes()
+     { 
+         return encryptedTextBytes;
+     } 
     public void setPublicKey(PublicKey receiver) {
         this.publicKey = receiver;
 

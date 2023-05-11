@@ -29,10 +29,11 @@ public class Receiver {
     PublicKey publicKey;
     KeyPair myPair;
     
-     //PublicKey publicKey;
+    
+        //PublicKey publicKey;
     byte[] EncryptedByte;
     Key key;
-     Cipher cipherText;
+    Cipher cipherText;
     byte[] encryptedTextBytes;
     public void generateKey() throws Exception{
         //Generate the Key for RSA algorithm
@@ -42,18 +43,36 @@ public class Receiver {
         privateKey=myPair.getPrivate();
         publicKey=myPair.getPublic();
     } 
+          
+        
+        public void setBobPK(Cipher cipherText) {
+       
+        this.cipherText = cipherText;
+    }
+    
+               public void setkey(Key key) {
+       
+        this.key = key;
+    }
+               
+                    public void setkey(byte[] encryptedTextBytes) {
+       
+        this.encryptedTextBytes = encryptedTextBytes;
+    }   
+    
         public byte[] DecryptMessage(IvParameterSpec IV) throws Exception {
-Sender s =new Sender();
+
         //initialize the cipher object, set mode to decrypt, key ,and Initial vector.
         cipherText.init(Cipher.DECRYPT_MODE, key, IV);
 
         byte[] decryptedTextBytes = cipherText.doFinal(encryptedTextBytes);
 
         System.out.println("The Decryption message is : " + new String(decryptedTextBytes));
-s.setK(encryptedTextBytes);
+
         return encryptedTextBytes;
     }
-    
+        
+       
      public PublicKey getPublicKey() {
         return publicKey;
     }
