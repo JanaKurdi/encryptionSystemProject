@@ -12,7 +12,7 @@ import javax.crypto.spec.IvParameterSpec;
 
 /**
  *
- * @author jamehah
+ * @author updated by jamehal
  */
 public class encryptionSystem {
 
@@ -31,26 +31,29 @@ public class encryptionSystem {
         System.out.print("Enter a message:");
         String plainText = input.nextLine();
         System.out.println("*********************************");
-        
-         //create Sender & Receiver objects
-        Sender sender =new Sender();
-        Receiver receiver =new Receiver();
-        
-         //method to generate keys
+
+        //create Sender & Receiver objects
+        Sender sender = new Sender();
+        Receiver receiver = new Receiver();
+
+        //method to generate keys
         receiver.generateKey();
         //send public key 
         sender.setPublicKey(receiver.getPublicKey());
-        
-       //generate Initial vector(IV)
-      //create array of 16 bytes beacuse AES algorithm supports key lengths of 128 bits
+
+        //generate Initial vector(IV)
+        //create array of 16 bytes beacuse AES algorithm supports key lengths of 128 bits
         byte[] iv = new byte[16];
         SecureRandom secRandom = new SecureRandom(iv);
         IvParameterSpec IV = new IvParameterSpec(iv);
-        
-      /////////////////////////////////////////////////
-       //method to encrypte the message by Alice
-       byte[] Sender=sender.EncryptMessage(plainText, IV);
-        
+
+        /////////////////////////////////////////////////
+        //method to encrypte the message by Alice
+        sender.EncryptMessage(plainText, IV);
+        receiver.setBobPK(sender.getcipherText());
+        receiver.setkey(sender.getencryptedTextBytes());
+        receiver.setkey(sender.getkey());
+        receiver.DecryptMessage(IV);
     }
 
 }
