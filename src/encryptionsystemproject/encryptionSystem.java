@@ -17,8 +17,12 @@ import javax.crypto.spec.IvParameterSpec;
 public class encryptionSystem {
 
     /**
-     * Section A49 Name: ID: Jana Kurdi 1906167 Jamelah hadi 1910165 Renad
-     * Ghaleb 1908460 Noor Babahr 1912922
+     * Section A49
+     * Name:      ID: 
+     * Jana Kurdi   1906167 
+     * Jamelah hadi 1910165 
+     * Renad Ghaleb 1908460 
+     * Noor Babahr  1912922
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
@@ -39,7 +43,7 @@ public class encryptionSystem {
         //method to generate keys
         receiver.generateKey();
         //send public key 
-        sender.setPublicKey(receiver.getPublicKey());
+        sender.setPK_receiver(receiver.getPublicKey());
 
         //generate Initial vector(IV)
         //create array of 16 bytes beacuse AES algorithm supports key lengths of 128 bits
@@ -48,12 +52,13 @@ public class encryptionSystem {
         IvParameterSpec IV = new IvParameterSpec(iv);
 
         /////////////////////////////////////////////////
-        //method to encrypte the message by Alice
-        sender.EncryptMessage(plainText, IV);
-        receiver.setBobPK(sender.getcipherText());
-        receiver.setkey(sender.getencryptedTextBytes());
-        receiver.setkey(sender.getkey());
-        receiver.DecryptMessage(IV);
+        //encrypte the message 
+         byte[] senderM=sender.EncryptMessage(plainText, IV);
+         //send the encrypted message to receiver
+         receiver.setMessage(senderM);
+         receiver.setEncryptkey(sender.getEncryptedKey());
+        // decrypte the message
+         receiver.DecryptMessage(IV);
     }
 
 }

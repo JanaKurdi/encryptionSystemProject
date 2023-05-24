@@ -40,7 +40,7 @@ public class Sender {
         c.init(Cipher.ENCRYPT_MODE, publicKey);
 
         /*Encrypt the text*/
-        EncryptedByte = c.doFinal();
+        EncryptedByte  =c.doFinal(key.getEncoded());
 
     }
 
@@ -60,31 +60,17 @@ public class Sender {
         //convert the array to string 
         String encryptedText = Base64.getEncoder().encodeToString(encryptedTextBytes);
 
-        System.out.println("The encrypted meesage is : " + encryptedText);
+        System.out.println("The Encrypted meesage is : " + encryptedText);
 
         return encryptedTextBytes;
     }
- 
-   public Cipher getcipherText()
-     { 
-         return cipherText;
-     }
-    public Key key()
-     { 
-         return key;
-     }
-    
-        public Key getkey()
-     { 
-         return key;
-     }
-              public    byte[] getencryptedTextBytes()
-     { 
-         return encryptedTextBytes;
-     } 
-    public void setPublicKey(PublicKey receiver) {
-        this.publicKey = receiver;
 
+   public void setPK_receiver(PublicKey receiver) {
+        this.publicKey = receiver;
+    }
+    
+    public byte[] getEncryptedKey() {
+        return EncryptedByte;
     }
 
 }
